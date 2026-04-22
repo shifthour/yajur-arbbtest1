@@ -150,6 +150,26 @@
         .dark-section .card .name { color: var(--brand-light); }
 
         /* ------------------- */
+        /* --- HEADER --- */
+        /* ------------------- */
+        .sticky-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 998; /* Below mobile menu toggle */
+            background: rgba(17, 17, 17, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transform: translateY(-100%);
+            transition: transform var(--transition-med);
+            padding: 1rem 0;
+        }
+        .sticky-header.is-visible {
+            transform: translateY(0);
+        }
+
+        /* ------------------- */
         /* --- NAVIGATION --- */
         /* ------------------- */
         .main-nav {
@@ -419,6 +439,11 @@
         .service-card {
             text-align: center;
             padding: 2.5rem 2rem;
+        }
+        .service-card.active {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--brand-primary);
         }
 
         .service-card svg {
@@ -992,6 +1017,15 @@
 </head>
 <body>
 
+    <!-- Sticky Header -->
+    <header id="sticky-header" class="sticky-header">
+        <div class="container">
+            <a href="#hero" aria-label="Go to top of page">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjE2IiBoZWlnaHQ9IjgzIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBvdmVyZmxvdz0iaGlkZGVuIj48ZGVmcz48Y2xpcFBhdGggaWQ9ImNsaXAwIj48cmVjdCB4PSI0OSIgeT0iNDE1IiB3aWR0aD0iMjE2IiBoZWlnaHQ9IjgzIi8+PC9jbGlwUGF0aD48aW1hZ2Ugd2lkdGg9IjI0MCIgaGVpZ2h0PSI5MiIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFQQUFBQUJjQ0FZQUFBQlFpemdIQUFBQUFYTlNSMElBcnM0YzZRQUFBQVJuUVUxQkFBQ3hqd3Y4WVFVQUFBQUpjRWhaY3dBQURzTUFBQTdEQWNkdnFHUUFBQnprU1VSQlZIaGU3WjE1bkJYRnRjZC92OU05d3d4QzlNVTFNZEdIQ3hyWmtiaWdpSW9ySWk0eGJoaTNKQy82VkhBQlZDSktqQnIzTFlsYk5NYTRiOUdvVVFRVm1GRzJHUlJtMko4UTlrMlVSWmFCNGRaNWYzVDFuYjUxZTRaaHVCbytXTi9QcDhSYmRicTZ1cnRPblZyUEFCNlB4K1B4ZUR3ZWo4Zmo4WGc4SG8vSDQvRjRQQjZQeCtQeGVEd2VqOGZqOFhnOEhvL0g0L0Y0UEI2UHgrUHhlRHdlajJkYmhXNUVVMURWc0hybXZMMkttNm02YWY4cE5xM1I5VzNidGxyaXhuczgyeE1GVWVDSjA2ZTNJb3MvZCtQL295aUdkamh3bjFQY2FJOW5lNkpBQ2p5bkZXbG1mVDV6SmlkK1d1a21mN3NRT1BQbjUwQVl2T3NWMk9OcEJCT256MmsxYWNac2M4UGdXNVNrQXZpUEJaSTZ2bXFhVHBvKysxOXVPVDJlN1ExeEk1cEdqUnZoOFhpK0JRcWt3Q1hSUCtyR2V6eWViNUlDS2JDbElDUHFiUnRWYmZBcE41Y2VvNnBNQmpmZHhaWGYzRFZwNldseFNUYVhuc1F0UzFPdWRlT1R1SGszUnQ2TmkybnM5WTJWcVMra3lidHhoYVlnTjdDejBMTmVmUFlaM25YN3JkQ1UxYVFmNzdVM3p1M3pDN1J0M3dGaEdMckpqV2JWcWxYNGFQajdlUHZOZjJERGhnMXVNa2hpM0tTcGFGYmNyT0NUV01hWUV3QmNRUEpha3N2ZGRGWGRTVlVmSW5rSlNlT214eGhqamdMd0t5ZDZMWUJwQUY0VmtjVk9HbFIxaUtydTQwU3ZJVGxSVlY4VWthK1RDY2FZeHdEOExwbVhNZWFQQUVhSnlHdEpXWnYyQXdDM2lNaGxicHFMTWVaY1ZjMTV0eVJobjJFTWdKZEVKUC9qUk5mK0JNQWcrL01tRVpucmlFQlY5MUxWMjVQMXlPYS9Dc0FJa20rU3pNUnB4cGdUQWZRQjhLNkl2SlM5S01wTFZQVnBtMGZxZHpIRzlBQndFVW1qcXBlTHlQb1VtY01CWEY2ZlV0cTVuMS9IejIyTXVRVEFNUUNlRkpFeVY3NVFwQlptUzhrcThIUFA4SzdiOGhYNGhKTjc0dmE3N3dkSnpKNzFPY0l3eEg3N3Q0YXFZdW1TeFNndGJZNlNraEpNbXpvRklOQmloNWJZcjNWcnpKczdCN3Z1dWh0S1NwdGo0NFlhVEpzNkJidnZzUWYyK01FUE1XUGFWUHptMGd1eDRxdXZjdTcxVFNtd2JXV0hxV3Bua2tORTVJK3VqRldDdVNSTGt4WE14WDdjdmdBZVNNVHRHQVJCTjFVOUJzQ1pJbEx1WERNV3dEZ0FFMndVQWJRQWNEYUFIVWtlU1hKTlF2NExBRWVLeUF6VWxYOEJ5UjFVdGEySUxNaG1Ic2tmQU9CakVkazFHWitHTWVZdUFBTUFiQUtRZlU1VkxXYWthZStUUEtVZVpia1h3TFgyNTgwaWNwc2pBbU5NZXdBVEVRM0tOdGxvQWdoVWxTU2ZJWG1wVlJvWVkvb0NlQkRBUFNKeWZUSXZWUTFVdFFaUjNTaHh2NHQ5TDIrUjdLVlI1dWVRZkRVcGcrZ2U1d0Y0SG9CSlBuTUNCYkN6aUt5MWVUNEM0SDhBL0VwRW5uYUZ0eWthbW9YKzcxYjdhT1hrR2ZyU0cyL3Juai82a1pMVWh4NTVRaWRNbWFtOXovaVpCa0dnRHo3eXVMNDk3Q01scVNTMXl5R0hhZlgvemRFanV4K3RPKzMwWC9yd1kwL3FwQm16OWNqdVI2dUlhTTlldmJWeThneDk5S20vNWQzdm01cUZOc2JzYll4WllZeTUwQmd6UHEwbE5zYjhJSlBKMUtwcTRLWWxNY1pjWW94NXg0MVhWUnBqZnBYSlpCWWFZMW9tMDR3eFk0MHhaeWJqWUpYR0dEUEpHSk5qT1RPWnpISlZQVEFoUjJQTVFtUE1SOGFZTjkzeXErcUJtVXdtcjFlUlJpYVR1Y3RFWEdPTStiNE51eHBqampYR0xMZHAzZDNyVkRVMHhpd3d4aXd6eG54dGpKbm1sZ05XZ1cwZUU0d3hQN0xoeDhhWVhzYVlyMnhhNTRSOFgyT015V1F5ZCtYbUZDbXdNYWJXR0pQNlhZd3h1eHRqTmhoajV0aDgvMWxQbWM2ejZjL1lzc1RseW9iNE92dXVIelhHWkd4ai9ZMVJvREd3bllYTzd6bmpnb3N2aGFxaTMrWC9nNFVMRm1EdlZxMXd6SEhINDY5L2VReHZ2ZkU2TXBsTVRqZWd6bm9yb01ES2xTc3dvTjhWV0xKNE1TNzk5V1V3eHVEZGQ5N0M0MzkrR0VkMDY0NzlXeCtRdVBvYjVVSUFiNUo4QmNEZXF0ck9GZGdTM0Y0S2JEZU01Rk1rNXdNNDEwMnZoMW9BbndCbzdTWm95azFJM3FxcUI2bHFUdjVwc2cxaHhkZUp5RmMyZkVGeWhLcStZUnZTdkEranFzY0MrQ0dBMXdHOHI2b0hxT29ocmx5Q1doRlpZTU44a3Y4QzhKcTk5OEd1Y0JNNVIxV0xyQVdmRE9CRVZkM0ZGVXF3am1SY3Bwd1E5d2krVFFxa3dQWFR2a05IZkRhaEVrdVhSRU94VHAyN2dDU0d2dk4yUWlxdndZTW00alpzMklDUkgzMkFOdTNheDJNaERQM1gyeUNKanAwTDlSM3JSMVVGd0FVQS9rNnlCc0JMVnFFTGpsWGlvYXA2VkpvbHFJZDlBY3h4STIxM05nZFZYVWZ5TndEdU04Wmt1OHRwc2syQjVDNEFxS3BwMXZ3QysrK3JKRisyLzk4bmtkNFk0Z21VTkdVUlZTMUtCZ0JGcmxDTTdlcjJzZDNpMXdDOHFxckZBTTV4WlIzRWpxMlRvU0R2YjBzcGtBTGJaU1RuRVVpaXRIbHpyRiszTGh2WHJLUUVxc0RxMWF1eWNmbGZJcksrU1ZhdVdJSGk0bUtJUkVWZXZYbzFqRkUwYTJidi9RMmlxa2NDQ0VuR2t4SFBBampmVnBBY0N0UUt6eUc1ZDBwZU94bGpmaGdIVmUxb2pMa1B3SDRBbm5OazY3V3FJaklDd05zQTdrOTArMUpsMHlBWk42UmRqREhuMjNDUnFqNEs0RlFBTTBrT1RWNmpxaTBBbkE1Z2lYMlA3OWt4K3psV2FkSm9ZWXc1M0lhdXF2cS9xbm9PU1VQeVkxZVlaRDlWWGVtRUx4Tks3M0lBeVM0a1B5RzVNREgyN2RPQVFwNnRxdFdxT3RrSjhiaitXNlZBQ2x4L0Z6b1ZwMTdtdnlsdVhrYmp5TWJlZEt1NEVNRHo4UVFJeVFrQWxxbnFTYTVnWTBoUnpCeFVkV09hNVZEVmV3RlV4a0ZWUjFocmVyR0k1TXptV1V1ZTk5cGlTRjRQb0x1cW5teC9jM1BsaWxIVjJHTC8walptendMNHE1MjBNUUN1SVZuWGFrZlhuQTZnaGFxK2JpZUIxZ0o0RjhDdURiekhnK3p3NEJNQUh3TjRtR1FKZ0R0SVRuZUZWZlVMQU5VcElmVzVWRFZXMUZoeFo1Q2NDT0FRQUhsREFBc2JDQzZOZnFkTnBVQUtuRzZCNjRPTkVDU1ltMSs5bDlTYlVCQlV0UVhKc3dBME44WmNaWXk1U2xXdkJMQVV3RVZ1UyszK1RrT2ptVlEzT3NtT0FIS24xNlBhOEV1U2V5YkNMZ0NHQUhqQ3ZhL3RIdFpiZVVpdUJIQVZnRWVNTWQvVGlBWUxGVU15dHRpUEF6Z0x3RmtrendYd2xMVjJUNmYwVHVLdWNpdFZ2VjlWN3dld0M2TDg0cTYxeTJJQTl3QzQxNGJCSkx1THlNMnVJS0tleGJNa0QzZkNFV216eG5aWWRMNTlsa01TWlFLaUljRDV6aVV4TDVNOHlBMGljcThyaUViV2g2MmhRQXE4WmRSYnE3Sm9KSk1Rekx1R3FiRUZSMVhQVU5XbEFKclppYUxXQUZxcjZ1Y0FqbmNuUEFyVTRuWlExYWtwSDUveFRMME5HWkpQQU5pL0tlVVFrWC9hZGRzL2JJa0ZUakJSUk40UWtUZEl2bXA3QTE4QTJBM0FuckdRWFY3cmdhaGNQUUgwcytGWVJPLzRGRlg5cjJUR2x2a2tieUI1UGNuclJlU090SzV6akcwWWsrK24zdWV4dzZKV3FHdEE0akoxdENKOXJKS24wc2o3MUJkZk1Pb3Q0SmF4aFYzbytnMURIWTVNM2l2UytINXVRc0c1aU9SOUpQc21nNGhjQ1dBa2dQcGE2bnBwNElORFZYY0M4RE9Tcnpja2wyQTFnQlVBY3RadmJXVjJHNEE4MXE1ZGU3V3FucVdxUjZZMEdQVlNqM0ZYMnpPQnFuNHZFWCtlcW9ZQW5pVDUzd0QyQnJDMy9mODNBSlNxNmxrSitTeU5VSkttMGdkUi9vT1NaYkpoa3UwcEhPbGV0SzFSSUFYZXdpNzBadXRWZHBLa1hpaXhUTU55VzRNeHBwVWRENzNpdHJnazFSanpITWxmdU5mQktwQWJHcEtCdlorcXZncmdmUkVaNjhvM3dGY2tkMHRHa05TR3V0QXhMVnUyWEVyeU9nQjNidTZkSjBtVHRVcjJ0VzA0ZGt3azliSHl6NUNjSnlMejdiTFFQQURQcVNwVTlZSzBkL1JOWUl3cEJYQ1dxbTVTMWFlVFpiTGxpbWZJMDdyMjNWWDFTV1BNVTI1SXJydGJDT0RYeHBqbmt5R1R5Ynhnak1uNVhrMmxRQXE4WmFlUk5sdXJZcG5rNTR6R0tsbkRYRnJhSENTeGNXUHFqcjFDY1NHQWQrMTRNUThSZVVkVlc2bHEzTzJpM1MxVVpXY3FrNkVxM2toZ0sycTNSTnBrWTh4Q0FHTUJUQ1I1YWU2ZDZzY3F6WHhWYlp1ZmxLSmxLUzJlaUR3SFlNd1dLcENtNVFWZ2thb2FBRWNoVXBaMnF0ckp6cXlQY1lVQkRDVzVpdVFSS1Z0RnQ0VEdWQ3NnZWpHOUFPeEVjb1NJTEhYVGJTTnFBUHhNVlpzbmt3QWNDT0NTZXNJZUNkbVl3d0NjbHd3a3p3R3dneXZZRkFxa3dKWkd2OExOWVROSzVMZmI3cnZqeStWZndKaG9QcUxWUHRHMy92ZnMyWFZDQlliazB3Q3VjT05qUkdROXlZTlZkUjRpK1dVQTJ0dnRqZWVrQkdQbDNnVFFOUkhmbStUQkpIOG9JZ05JYm5UdlJmSjhBQis0OFpZTEFmelRpZXVtcXYrT2YxaEZQeFpBVmE1WWxqNGljb1FiV1EvMzIrZDh4VTJ3NzZ0OXZLeEZjZ0hKZGdDNnAyMnR0UHVPT3dQb0VPOHZKemtUUUR2N3pJM2hlWHZQZUJJcWlRSFF3WWI0L3VWV1ByWDNKQ0t6U0xhMWpWRDh6ZDZ6MTdTckw2aHFoWlZWQUw5MzB4T2hQY21GN24yYlFvRVVlTXZXWXJsWlRXY2tZOXYzNysrOE0zb2NmeUtHdjErM3RIakN5YWZncTYrK3hLVFA0cTNCaGNkMnJiNTA0NU9RbkJNdjRaRGNKQ0pUNmdsVDQzRWN5UlZPMml5U1M5eDl1a2xJemhhUjFXNDhvZ3EzU0VUbU8zSFQzQU1GSWpJamJhTStvclRWYVVzemFZaklVbHZ1dkpseUVWbG0wK1lpOTFsenlwZEVSUDR0SWxOSXJrSjBUWTM5M2FqV1dVUyt0UGZJczZZa1ZVU21PdTkvaVpWZjVzckhrSnh1eXhEdm8xNlo4azNkc0RhKzNuNFROejBiMGhycHBsQWdCYlpkNkxRT1ZRcHF4N2dpZ25oamhvdUNDSUlBYmR0M3dPTlBQNHMxYTliZzhUODlEQURvZEhBWG5IYm1XWGprb1FkU1R5UjVQTjhWMHJWbmk5bXlBLzFxRE40YStpRSttVEFKbjB5WWhHNUhIK05LQUtxNC8rRkg4TUpyYjJMRGhocGNmUDdaV0xWcUpZNDk3Z1E4K3VUZjhQb3JMK0hsRi9JMkgzazgzeWtLcE1DV1JscGdBUGpvZzJGNDc1MjM4ZDQ3YjJQcGtuVHZyeE0vbTRENTgrYWlkZXNEMGI1ak5FODBkY3BrTEZxMEVKME83b0tXTFpNckZSN1BkNDhDS1hCTnRDNVlqd1YybzBuQkEvZmNoVnNIRDhLdGd3ZGg1dlJwamtURTAwOCtnZDRuOXNCckw3K0l1eC80STlxMGE0Y2xpeGZoOGw5ZWpOMzMyQU1EQjkza1h1THhmS2NvaUFMUG1ERVgwNmZQd05LbHkvSVcrR2ZObm8wRkMrck9qcTlZc1FMVHAwL0hwazIxMmJqNUN4WmdWbUkyZWQyNjlaZzJmUWJXckZtRFRDYURlKzY4SFNOSGpNQkp2VTRIQUN4ZHNoaC9mdmhCN0h2Z1FXalJNdWZZTEFCZ3hvd1ptRDVqaGh2dDhXeDNGRVNCNTgyZGk3bno1K09ybFN2Y0pDeGF2QVRMbDllZExQdjY2eldZTzM4K01wbTZDZGZseTVkajBlSzZidlNHRFRXWU4yOGVhbXFpeVRFMUJoOStNQXc3N2J3TDRxWE5zaEVmWWVHaXhkaG52N3hqc0ppM1lBSG16cHZuUm5zODJ4MEZVV0FBQ01NZ2RVWTVEQUpJVUJjdlFvUkJrRE5nbGtCc25JVkVFSVpaWlFXQTJvMGJVZHA4aDJ6YzZsVXJFUVlCZHR3cGZ3dHRHSVFJaStvN1FiYmxXQThSWjdqeDlXR01hV1dNNldPTXVjQ0dibzNaSk9GYzE4Y1kwOFZKTHpYR1pIY3NxV29MNitvbGkwYmVJRTR5eHR4aGpPbnY3dmd4eHV4bmpEbldpZXRtak1tdUFSdGp1bGkzTmttWnN4TFBjNEhyY2NNWXM3TXg1bXBWdmJPMnR2WTBkeCt4OVJ4eW9hcmVhWXo1dGQwTjFTREdtRE1TOXp2REdKTXo2V0hMR2FmM1Nka0pCVlZ0cnFvWDIvdGVZWXo1dnBNZTJtdERSSG51YTcxdk5JdGxuSEpja1BMK3N1bXErbk4zWDdlcVNtMXQ3V25HbUQ4WVk2NTJ5N0ExNUd0Y0UyaFdVb0l3Q0ZNVldJSUFJblhLU1Vxa25Fa1pDU0FKQlNhSk1BeHlUaTJKNUNwNUpwT0JCQUdDTU05TENvSWdRSkM0NTlaZ2xlVitWWDFoQzNZS0hRYmdkcnN4L2xEclJXSnpoOFJoci9zZGdJNnEyaFhBY0ZVOU9wRytrejIySjRqS3RpdUF4NU9OZzZyK0FzQ0RKT2ZZNDNnZkpKV0o1SkhKczZ2MjJzdFU5ZDJFVzVnTEFHUWJMQnYzSUlBVDdOYlNRd0RzNzZRUEEzQ1FxczRKZ3VBZVZjM1pUYWFxOTlqVFcvOW5ONjg4a2t4M3NYbmVDK0I0K3g2dkFmQktvdkdpZmRiTGJQcHhxam8rK1kzc29mNzM3RGJOeFhaanhtaTczenlXYVFiZ0dWVnRab3c1UUZVL0JGQWNyNkVueW5GeTR0bXpSdzNkY2hwakxsZlZvYzQzdVRJSWdsc0J6TEwxNGUzR05PaU5JVi9qbWtnUUJCRG1aeGVJSUVnb05ta3RjS0w0ZVRKMkRaaVNVR0JHY1VuQ0lJQ2s3QllNZ3lEWG9tOEZxdm9qQUcxSVBtRzlOelNXMlNMU24yUmZBQy9hRDk4WXBwTWNJQ0pYQVJpdnFudTVBcHVobmQyTS8zZVN2d0x3VDFYTjJiYVh0c09TNUNLU2FUdVpzcEM4ZzJRL2t2MUU1TWs0M2g3SWJ3UGdXWktQMjIyRk9WNHlBWFFrT1p6azN3QmNCR0I2SXl2eGZTUUhrTHc1UGowVVl6ZG1ETGZwbHdMNFBMR3RGYXJhRThDZUpIdUt5RU1rendPd0lLVnhvVDNFOEk2SURCR1JaNUxwbHJzU3ovNm9tNWdvNXlXMlFTbENYZDV0QUl3aitYY0FGd01ZMVlDVGdTMGlYK09hUWtremhHRzZCUTdDL0M1MFpEVVR5aGxJamlXTmxEeTNDeTNpeUNES2g2bjNEQkVVcmd0OUxvQTNBYnhzdlhEazN6Q2R2WTB4TjZ2cWJhcDZwdlVEdFZtc2haeWdxbE5zUmNqeGJORUkvZ3FnazZyT1Z0WEhiYVYwbFNrSE8vSDRpREhtSU9zdU5rMnhhSHNoSDZ2cXg4a2hoYlZXZDZucU82bzZGc0NocmtjT2tnK282dFdxT3RWNjVIeWxNU2VNVlBWbCt6NytBZUE1NXhvQ09FcFZCNnZxdy9ZQXhhaEVlaHZyREtBV1VSa01nRExiVThnK284M3ozZWgyR2g5a2NIa204ZXhudTRrQWZxT3FOd040ekQ3YlJ0VGwvYmp0SWN5eW5raGZKbGszaTdzVk5MWXlOa2hKYklFVGlob1RTbTUzVmloV09ldGtBZ2tRNW5TemJSZmFVZUFjZjlLTXhycXBWai9JemErcDJJOTh2ajNmZW9vOVl0WllTMXByRCtXdnRHZUpXN2dDYWRqOXRLZlUxTlNjYUwxUXVHNVNXWStDeFN3RTBNbTZyOG1vYXJreEpuK21MNEY5enh2dEVjbjc2OWticXdENlc3L1lmWkw3c2xVMUpQbUFpT3dMNEdGVi9hV3FQcFZ6c1dvWnlmMnM4cllIVUI2UE94dUM1QlgyM1o4TFlLQXhabWRIWkwxOXoxK1QzTm1XTTZZR1FQSXdBdXdoQW5jYkl3SGNhdC9kSDV5MG1Cc1R6NTdXcUs2eTVhZ0ZzTFBUUU15eVBhTnpiVDBZYmM5SWJ6WDV0YjhwTkxPV05zVWFSbVBnUlBjNGE0RVRNaUxPR0JnSWdqQm5ERXlSdkM1MFpJSHo2M0lRQmdXeHdLcmFIc0FQYkt1OXpJNG4wNDZZcGJGSVJQNGtJdmVRSEdGUHNUU0dXcEpmbHBhV0xnT3dJUFphWVZsSnNsWlZPOW9LMGduQVVzY3FQVUh5S3BJVjFnSDlHdnNNUUYwRDRCTHZFUjVwRzQzNmhnckw3Q2I4UmZFZVlVUjU3cTJxMHpVNmcvd0N5VWNCN0pVY3J3S29VTlZEU0E0amVhTnRGTk1haWh6c1NhVXZBY3l3M1ZLM0lhd1FrVCtSL0sycXJyTmQ0WmlSSkk5WDFYMDFtdHpiMlhvUStkQjVaMnF0NGlXcStndnJLRDRIa2wra1BYdUNsNnl2OER1czVjOWlyZnFGSkVmYklWVlFXMXU3V2YvYmpTRmY0NXBBQ2V3a1ZzcllLckxNdVpOWVlSRG1HQkVKZ2x6bHRPUGRIQXNjajUzcmhCQksrcmc3ZEN6NlZ2QnpBSytKeUVNaThoQ0Eyd0QwYnNBSlc0eFIxVnJVVmQ3bFNROFZEV0JJZGxYVldjYVlXZFpmVlhaY2FrOC8zYTJxN3h0alBnWHdwSFdwaytRaFkwdy9WUjJycWhQdDJHdDBJajBUZHlrUlZVd2xtWFhRVG5LZ3FxNUt1cUd4bFgwamdHR3FPc3VHZDJNRnRZY08zZ0l3VVZWSFd0YzM5eVFPRDZpMWJLK282a2hWZmNkT3RHVWQwZGZEUnRzdG42V3E0d0U4WnM4UXg5UTY3bktXQWNqT0dZaklwNWxNNWw3YmpSNWhUMko5U1BLTnhEV0lOL09UbkVQeUdnQi9kbWFTaytXWXBhb2ZPQTNoeG9UbFh3RmdCK2NZNG4wQWhxanFKNm82Z2VSYnhjWEZreFBwVFNhLzlqZUJaaVh4TWxMdTJCWjJRaWs1UVNVU3p6RFhFVGd6ekZFWE9zeWR4SEs2MEFRUUZvV1FGQXNjaG9WWlJpSjVKOG4raWQvalJLUkQ0cThGcEVMeURldEhLNjY4QSt6eHNnYXhGYXNWeWZZaTBsWkVEaEtSU1k3TUVKSWRyUHVhQTBUaytXUzZpSXdoMmRyT3pwNU1zcGN6M25yWmRVS2dxbGRZeDNRZ3VWeEVEckNWTGd2SnppVGJrR3hQc3IzMUdwSlZVRnVlcnRicUgraitkUU03NmZVVGt0ZmFNWExPME1ERjVubVk5VG5WWGtUMkZaR3JuWHZlSEpmVHhuZXpzK0Zad2pDOHpSNzFHMmp2KzV2a3NVYVM2MGorT0hiQ1IvSlpraisxVHZmeXltSERxVTQ1RGlNNTFmNmVTWEwvcEpVV2tlSDJtMXdKNERnQTU2WWRyV3dLQlZGZ29BUkJFS2FPZ1YwTExCUUVRWmlqNTY0RnppcXdzNHdVQkxsajRDQUl3UlFMSElSaFFaYVJTSzVKZmdqN3NWWnM3dVdUM0ppY09CS1I5WnViU0lLOXp1WWZoOVNHd2pvU0h5OGlYN2hwaU5LL0ZwSFA3REhGbkNPS0lyTEJ0WHdpc2paNTlKRGtHdmZZSWNtVnliSzVSeHNaSGR1YlMzSUN5ZndkUGRGOXZpQTVRVVFXeGdyUUVMYjdITjh6ejFxVFhKY3NwMzN1dk9PUzlvamorRFRuNjRsdm1sVElGY25qZms0NVZzVEhIcDMwdUFjVFg1L3oza211RXBGUFJlVGZtNnMvVzBKKzdXOEtKWkhWRTRwcmdCRUVJWXFTbGxNaTVVd0tCbzV5RW5ZV09tRmRtYlhBVVp4SVVPL01keGdFQmJIQUhzKzJUbjd0YndJbEtFRVlobm1UVEtxUnZuVTU5SEFjMmpYeUR5WWlDSXVLY21laGc5eGxId29SRnVWYTF5Q282MElIWVlqTCtsNk5JQXpqSlpBY3dxSWlCS0hyMWRUajJmNG9pQUpuTGJDSVk0QVZqeng0SDFRVmc0YmNoa01QUHlKUzRMU3RsSG5MU0xucndHU2t3RUVZb1ArTmczSDBzY2RqYXZVa0RIc3Y3MitFUmN0SXllNjJ4N09kVWhBRkxrRzBrYU80V1hiN2FKWXAxWk13Wk5BQUFNRE50OStKemwwT3lWM1B0ZXZBN2thT2FIenJqSUhERVAxdkhJd2VKNXlFS2RWVkdESm9JRFk2SGptQ01FUlJVUkhDbEMyV0hzLzJSa0VVT01QaU5XRVFmbjFLNzlOeCtKRkh1Y21vbnZnWmJybWhQMGhCOTJPUFJ4Z1c1U2huRUFUNVkyREhBZ2NpS0M0cXh2RW45c1RVNm1vTUhuZ3ROdGpUU2pGaEdHTFFMYmVodExTNWhrWEJvcHhFajJjN3BDQUszUE9vemw4RUFYbzFLeW45K3RZNzcwUFhGQ1dlK0drbGJocHdEVFp0MnBSaWdYTTNhY1JkNk9TNmNqeUpOWFZLTlc2OHJpOXFhbkluRzRNd3hHOS9kenQ2SEgrU0JtRTR2RlJyKytZSWVEemJJUVZSWUFBNCtyQXU1UXpRcTdpNGFNM3Y3MzRBaDNYdDVvcmcwOHJ4R05TL0gycHJuWjFzZFgvdHp2NWszaDVuZ3BnNnVRb0QrMTJCOWV0ei9tNFdnaURBYjRmY2hoNG5uS3dVZkxoYWFzL28yclZyM25LQ3g3TzlVVEFGQm9EdUIzY29JK1RVb3JCbzdXMzNQSUJERHM5M00xdzViZ3h1dks0dk5tM0tYZUpNVG41cDlqOTFUSjgyQmRkZGRSbldyY3Q2N2dRUXJTSGZlTXZ2Y2R5SlBaWGdpT2JjNWJUZVhicmthcmpIczUxU1VBVUdnRzQvYlRjeUVOTzd1S2g0M1IzM1BvaWZIbnE0SzRKeG96L0JLc2Q3UjFKZkkyWE8xZURSNWFPd2JxMmp2Q0s0WWZEdmNNTEp2VlRCc3BaRm1kNWR1dXpwbGRmem5hSGdDZ3dBUjNUcCtCRkRuRlpjM0d6ZEhmYzlqSU1QT2N3VmFSQk5PSFd2RHhIQndKdUc0S1JUZWl2SWNsUEtYaDA3ZHN6VmNJOW5PK2NiVVdBQTZOYTUvUWNLbmxIY3JObjZPKy8vSXpwM2FlQVVIb25kZHQ4ZDdUcDBBa24wT09Ia3lBQ25ISTZBVmQ0QmcyNUJ6MU5QVndDZlNNMnFYc2UwYlp1MzFjN2o4V3dsb3lxclR5eXJxRm8zdkh5OGRqcjRwMnI3eGpuaGlHNUg2MGRqUHRYM3k4YnFrRHZ1MXZMS2FuM3F1VmUwUmN1V2ViSWlvZ04vZTR1V1ZWU1o4c3FxanorZU5pM2ZMYVhINHlrYzVlTW5uVnhXVWJWdVdQbDQ3ZGk1UzU1U0F0QnVSeCtySThaOHFtVVZWZnJYNTEvVmx0L2JNVTlHUkxUL2pZTzFyS0xLbEZWTUdqMTI3RXp2MmQzaitUYjR1S0txWjFsbDFicGg1ZU8wUTZmT2Vjb0pRSTg2cG9mKzVlOHY2dmQyekZkZVV2UzZHMjZ5eWxzOVp1eE1yN3dlejdkS1dXVjFyN0tLcXZYRHlzWnArNDZkOHBRMFVsU214bDB6Y0ZDa3ZPT3J4bFZXemtyKzhXaVB4L050VVQ2aCt0U3lpcXIxNzVlTjFiWWRPdVlwcXh0STZ0WDliOUN5aWlvdHE2Z2FQK0t6ejdJdVFUMGV6MytBanl1bW5EYXFZbExOKzZQR2FwdDJIZktVTnFtOGZhKzczaXB2ZFVWNWVWVytGM2VQeC9QdFUxNVpkVVpaUlZYTjBGRmo5S0MyN1ZPVjk4cHJCdGd4YjlXRW9hTkhGOHlidmNmaktRQ2p4bGYvckt5aXF1YTlrV1AwSjIzYTVTanZGZjJ1aTVTM3N1clQ0ZVBHdWE1RVBSN1B0a0I1WmRYUFI0MmZ0T0c5RWFQMXdJUGFLRW05dk8rMVZubXJQeHN4b2pMcFZ0WGo4U1JJMytyMExWTmVPZVZzTlp1ZVhidDJiZkhJajRiamxONW5xSUxWaGtVOWp1bHlZTjJmTnZSNFBEbHNFd29NQUo5TXFENDNZL1NaeUhrM0p5T283WEZVNTg2cFhoYzlIay9FTnFQQUFGQmVNZmw4cFJrUWhPYkVJenAyWE9hbWV6eWViWnpHL0wwY2o4Zmo4WGc4SG8vSDQvRjRQQjZQeCtQeGVEd2VqOGZqOFhnOEhvL0g0L0Y0UEI2UHgrUHhlRHdlajhmajhYZzhIby9INC9GNHRuWCtIeW9jdnQxcnhvdE5BQUFBQUVsRlRrU3VRbUNDIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBpZD0iaW1nMSI+PC9pbWFnZT48Y2xpcFBhdGggaWQ9ImNsaXAyIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjA1NzE0MiIgaGVpZ2h0PSI3ODg1NzEiLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDkgLTQxNSkiPjxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDAwMTA1IDAgMCAwLjAwMDEwNSA0OSA0MTUpIj48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDIpIiB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxLjAwMjQyIC0wLjAwNDA4MDYzIC0wLjAyODMyMDMpIj48dXNlIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHhsaW5rOmhyZWY9IiNpbWcxIiB0cmFuc2Zvcm09InNjYWxlKDg1NzEuNDIgODU3MS40MikiPjwvdXNlPjwvZz48L2c+PC9nPjwvc3ZnPg==" alt="Aldrin Raphael Logo" style="height:30px;width:auto;object-fit:contain">
+            </a>
+        </div>
+    </header>
+
     <!-- Navigation -->
     <nav class="main-nav hidden md:flex" id="main-nav">
         <!-- Dots will be injected by JS -->
@@ -1011,7 +1045,7 @@
         <div class="ambient-glow glow-2"></div>
         <canvas id="hero-canvas"></canvas>
         <div class="hero-content">
-            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjE2IiBoZWlnaHQ9IjgzIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWw6c3BhY2U9InByZXNlcnZlIiBvdmVyZmxvdz0iaGlkZGVuIj48ZGVmcz48Y2xpcFBhdGggaWQ9ImNsaXAwIj48cmVjdCB4PSI0OSIgeT0iNDE1IiB3aWR0aD0iMjE2IiBoZWlnaHQ9IjgzIi8+PC9jbGlwUGF0aD48aW1hZ2Ugd2lkdGg9IjI0MCIgaGVpZ2h0PSI5MiIgeGxpbms6aHJlZj0iZGF0YTppbWFnZS9wbmc7YmFzZTY0LGlWQk9SdzBLR2dvQUFBQU5TVWhFVWdBQUFQQUFBQUJjQ0FZQUFBQlFpemdIQUFBQUFYTlNSMElBcnM0YzZRQUFBQVJuUVUxQkFBQ3hqd3Y4WVFVQUFBQUpjRWhaY3dBQURzTUFBQTdEQWNkdnFHUUFBQnprU1VSQlZIaGU3WjE1bkJYRnRjZC92OU05d3d4QzlNVTFNZEdIQ3hyWmtiaWdpSW9ySWk0eGJoaTNKQy82VkhBQlZDSktqQnIzTFlsYk5NYTRiOUdvVVFRVm1GRzJHUlJtMko4UTlrMlVSWmFCNGRaNWYzVDFuYjUxZTRaaHVCbytXTi9QcDhSYmRicTZ1cnRPblZyUEFCNlB4K1B4ZUR3ZWo4Zmo4WGc4SG8vSDQvRjRQQjZQeCtQeGVEd2VqOGZqOFhnOEhvL0g0L0Y0UEI2UHgrUHhlRHdlajJkYmhXNUVVMURWc0hybXZMMkttNm02YWY4cE5xM1I5VzNidGxyaXhuczgyeE1GVWVDSjA2ZTNJb3MvZCtQL295aUdkamh3bjFQY2FJOW5lNkpBQ2p5bkZXbG1mVDV6SmlkK1d1a21mN3NRT1BQbjUwQVl2T3NWMk9OcEJCT256MmsxYWNac2M4UGdXNVNrQXZpUEJaSTZ2bXFhVHBvKysxOXVPVDJlN1ExeEk1cEdqUnZoOFhpK0JRcWt3Q1hSUCtyR2V6eWViNUlDS2JDbElDUHFiUnRWYmZBcE41Y2VvNnBNQmpmZHhaWGYzRFZwNldseFNUYVhuc1F0UzFPdWRlT1R1SGszUnQ2TmkybnM5WTJWcVMra3lidHhoYVlnTjdDejBMTmVmUFlaM25YN3JkQ1UxYVFmNzdVM3p1M3pDN1J0M3dGaEdMckpqV2JWcWxYNGFQajdlUHZOZjJERGhnMXVNa2hpM0tTcGFGYmNyT0NUV01hWUV3QmNRUEpha3N2ZGRGWGRTVlVmSW5rSlNlT214eGhqamdMd0t5ZDZMWUJwQUY0VmtjVk9HbFIxaUtydTQwU3ZJVGxSVlY4VWthK1RDY2FZeHdEOExwbVhNZWFQQUVhSnlHdEpXWnYyQXdDM2lNaGxicHFMTWVaY1ZjMTV0eVJobjJFTWdKZEVKUC9qUk5mK0JNQWcrL01tRVpucmlFQlY5MUxWMjVQMXlPYS9Dc0FJa20rU3pNUnB4cGdUQWZRQjhLNkl2SlM5S01wTFZQVnBtMGZxZHpIRzlBQndFVW1qcXBlTHlQb1VtY01CWEY2ZlV0cTVuMS9IejIyTXVRVEFNUUNlRkpFeVY3NVFwQlptUzhrcThIUFA4SzdiOGhYNGhKTjc0dmE3N3dkSnpKNzFPY0l3eEg3N3Q0YXFZdW1TeFNndGJZNlNraEpNbXpvRklOQmloNWJZcjNWcnpKczdCN3Z1dWh0S1NwdGo0NFlhVEpzNkJidnZzUWYyK01FUE1XUGFWUHptMGd1eDRxdXZjdTcxVFNtd2JXV0hxV3Bua2tORTVJK3VqRldDdVNSTGt4WE14WDdjdmdBZVNNVHRHQVJCTjFVOUJzQ1pJbEx1WERNV3dEZ0FFMndVQWJRQWNEYUFIVWtlU1hKTlF2NExBRWVLeUF6VWxYOEJ5UjFVdGEySUxNaG1Ic2tmQU9CakVkazFHWitHTWVZdUFBTUFiQUtRZlU1VkxXYWthZStUUEtVZVpia1h3TFgyNTgwaWNwc2pBbU5NZXdBVEVRM0tOdGxvQWdoVWxTU2ZJWG1wVlJvWVkvb0NlQkRBUFNKeWZUSXZWUTFVdFFaUjNTaHh2NHQ5TDIrUjdLVlI1dWVRZkRVcGcrZ2U1d0Y0SG9CSlBuTUNCYkN6aUt5MWVUNEM0SDhBL0VwRW5uYUZ0eWthbW9YKzcxYjdhT1hrR2ZyU0cyL3Juai82a1pMVWh4NTVRaWRNbWFtOXovaVpCa0dnRHo3eXVMNDk3Q01scVNTMXl5R0hhZlgvemRFanV4K3RPKzMwWC9yd1kwL3FwQm16OWNqdVI2dUlhTTlldmJWeThneDk5S20vNWQzdm01cUZOc2JzYll4WllZeTUwQmd6UHEwbE5zYjhJSlBKMUtwcTRLWWxNY1pjWW94NXg0MVhWUnBqZnBYSlpCWWFZMW9tMDR3eFk0MHhaeWJqWUpYR0dEUEpHSk5qT1RPWnpISlZQVEFoUjJQTVFtUE1SOGFZTjkzeXErcUJtVXdtcjFlUlJpYVR1Y3RFWEdPTStiNE51eHBqampYR0xMZHAzZDNyVkRVMHhpd3d4aXd6eG54dGpKbm1sZ05XZ1cwZUU0d3hQN0xoeDhhWVhzYVlyMnhhNTRSOFgyT015V1F5ZCtYbUZDbXdNYWJXR0pQNlhZd3h1eHRqTmhoajV0aDgvMWxQbWM2ejZjL1lzc1RseW9iNE92dXVIelhHWkd4ai9ZMVJvREd3bllYTzd6bmpnb3N2aGFxaTMrWC9nNFVMRm1EdlZxMXd6SEhINDY5L2VReHZ2ZkU2TXBsTVRqZWd6bm9yb01ES2xTc3dvTjhWV0xKNE1TNzk5V1V3eHVEZGQ5N0M0MzkrR0VkMDY0NzlXeCtRdVBvYjVVSUFiNUo4QmNEZXF0ck9GZGdTM0Y0S2JEZU01Rk1rNXdNNDEwMnZoMW9BbndCbzdTWm95azFJM3FxcUI2bHFUdjVwc2cxaHhkZUp5RmMyZkVGeWhLcStZUnZTdkEranFzY0MrQ0dBMXdHOHI2b0hxT29ocmx5Q1doRlpZTU44a3Y4QzhKcTk5OEd1Y0JNNVIxV0xyQVdmRE9CRVZkM0ZGVXF3am1SY3Bwd1E5d2krVFFxa3dQWFR2a05IZkRhaEVrdVhSRU94VHAyN2dDU0d2dk4yUWlxdndZTW00alpzMklDUkgzMkFOdTNheDJNaERQM1gyeUNKanAwTDlSM3JSMVVGd0FVQS9rNnlCc0JMVnFFTGpsWGlvYXA2VkpvbHFJZDlBY3h4STIxM05nZFZYVWZ5TndEdU04Wmt1OHRwc2syQjVDNEFxS3BwMXZ3QysrK3JKRisyLzk4bmtkNFk0Z21VTkdVUlZTMUtCZ0JGcmxDTTdlcjJzZDNpMXdDOHFxckZBTTV4WlIzRWpxMlRvU0R2YjBzcGtBTGJaU1RuRVVpaXRIbHpyRiszTGh2WHJLUUVxc0RxMWF1eWNmbGZJcksrU1ZhdVdJSGk0bUtJUkVWZXZYbzFqRkUwYTJidi9RMmlxa2NDQ0VuR2t4SFBBampmVnBBY0N0UUt6eUc1ZDBwZU94bGpmaGdIVmUxb2pMa1B3SDRBbm5OazY3V3FJaklDd05zQTdrOTArMUpsMHlBWk42UmRqREhuMjNDUnFqNEs0RlFBTTBrT1RWNmpxaTBBbkE1Z2lYMlA3OWt4K3psV2FkSm9ZWXc1M0lhdXF2cS9xbm9PU1VQeVkxZVlaRDlWWGVtRUx4Tks3M0lBeVM0a1B5RzVNREgyN2RPQVFwNnRxdFdxT3RrSjhiaitXNlZBQ2x4L0Z6b1ZwMTdtdnlsdVhrYmp5TWJlZEt1NEVNRHo4UVFJeVFrQWxxbnFTYTVnWTBoUnpCeFVkV09hNVZEVmV3RlV4a0ZWUjFocmVyR0k1TXptV1V1ZTk5cGlTRjRQb0x1cW5teC9jM1BsaWxIVjJHTC8walptendMNHE1MjBNUUN1SVZuWGFrZlhuQTZnaGFxK2JpZUIxZ0o0RjhDdURiekhnK3p3NEJNQUh3TjRtR1FKZ0R0SVRuZUZWZlVMQU5VcElmVzVWRFZXMUZoeFo1Q2NDT0FRQUhsREFBc2JDQzZOZnFkTnBVQUtuRzZCNjRPTkVDU1ltMSs5bDlTYlVCQlV0UVhKc3dBME44WmNaWXk1U2xXdkJMQVV3RVZ1UyszK1RrT2ptVlEzT3NtT0FIS24xNlBhOEV1U2V5YkNMZ0NHQUhqQ3ZhL3RIdFpiZVVpdUJIQVZnRWVNTWQvVGlBWUxGVU15dHRpUEF6Z0x3RmtrendYd2xMVjJUNmYwVHVLdWNpdFZ2VjlWN3dld0M2TDg0cTYxeTJJQTl3QzQxNGJCSkx1THlNMnVJS0tleGJNa0QzZkNFV216eG5aWWRMNTlsa01TWlFLaUljRDV6aVV4TDVNOHlBMGljcThyaUViV2g2MmhRQXE4WmRSYnE3Sm9KSk1Rekx1R3FiRUZSMVhQVU5XbEFKclppYUxXQUZxcjZ1Y0FqbmNuUEFyVTRuWlExYWtwSDUveFRMME5HWkpQQU5pL0tlVVFrWC9hZGRzL2JJa0ZUakJSUk40UWtUZEl2bXA3QTE4QTJBM0FuckdRWFY3cmdhaGNQUUgwcytGWVJPLzRGRlg5cjJUR2x2a2tieUI1UGNuclJlU090SzV6akcwWWsrK24zdWV4dzZKV3FHdEE0akoxdENKOXJKS24wc2o3MUJkZk1Pb3Q0SmF4aFYzbytnMURIWTVNM2l2UytINXVRc0c1aU9SOUpQc21nNGhjQ1dBa2dQcGE2bnBwNElORFZYY0M4RE9Tcnpja2wyQTFnQlVBY3RadmJXVjJHNEE4MXE1ZGU3V3FucVdxUjZZMEdQVlNqM0ZYMnpPQnFuNHZFWCtlcW9ZQW5pVDUzd0QyQnJDMy9mODNBSlNxNmxrSitTeU5VSkttMGdkUi9vT1NaYkpoa3UwcEhPbGV0SzFSSUFYZXdpNzBadXRWZHBLa1hpaXhUTU55VzRNeHBwVWRENzNpdHJnazFSanpITWxmdU5mQktwQWJHcEtCdlorcXZncmdmUkVaNjhvM3dGY2tkMHRHa05TR3V0QXhMVnUyWEVyeU9nQjNidTZkSjBtVHRVcjJ0VzA0ZGt3azliSHl6NUNjSnlMejdiTFFQQURQcVNwVTlZSzBkL1JOWUl3cEJYQ1dxbTVTMWFlVFpiTGxpbWZJMDdyMjNWWDFTV1BNVTI1SXJydGJDT0RYeHBqbmt5R1R5Ynhnak1uNVhrMmxRQXE4WmFlUk5sdXJZcG5rNTR6R0tsbkRYRnJhSENTeGNXUHFqcjFDY1NHQWQrMTRNUThSZVVkVlc2bHEzTzJpM1MxVVpXY3FrNkVxM2toZ0sycTNSTnBrWTh4Q0FHTUJUQ1I1YWU2ZDZzY3F6WHhWYlp1ZmxLSmxLUzJlaUR3SFlNd1dLcENtNVFWZ2thb2FBRWNoVXBaMnF0ckp6cXlQY1lVQkRDVzVpdVFSS1Z0RnQ0VEdWQ3NnZWpHOUFPeEVjb1NJTEhYVGJTTnFBUHhNVlpzbmt3QWNDT0NTZXNJZUNkbVl3d0NjbHd3a3p3R3dneXZZRkFxa3dKWkd2OExOWVROSzVMZmI3cnZqeStWZndKaG9QcUxWUHRHMy92ZnMyWFZDQlliazB3Q3VjT05qUkdROXlZTlZkUjRpK1dVQTJ0dnRqZWVrQkdQbDNnVFFOUkhmbStUQkpIOG9JZ05JYm5UdlJmSjhBQis0OFpZTEFmelRpZXVtcXYrT2YxaEZQeFpBVmE1WWxqNGljb1FiV1EvMzIrZDh4VTJ3NzZ0OXZLeEZjZ0hKZGdDNnAyMnR0UHVPT3dQb0VPOHZKemtUUUR2N3pJM2hlWHZQZUJJcWlRSFF3WWI0L3VWV1ByWDNKQ0t6U0xhMWpWRDh6ZDZ6MTdTckw2aHFoWlZWQUw5MzB4T2hQY21GN24yYlFvRVVlTXZXWXJsWlRXY2tZOXYzNysrOE0zb2NmeUtHdjErM3RIakN5YWZncTYrK3hLVFA0cTNCaGNkMnJiNTA0NU9RbkJNdjRaRGNKQ0pUNmdsVDQzRWN5UlZPMml5U1M5eDl1a2xJemhhUjFXNDhvZ3EzU0VUbU8zSFQzQU1GSWpJamJhTStvclRWYVVzemFZaklVbHZ1dkpseUVWbG0wK1lpOTFsenlwZEVSUDR0SWxOSXJrSjBUWTM5M2FqV1dVUyt0UGZJczZZa1ZVU21PdTkvaVpWZjVzckhrSnh1eXhEdm8xNlo4azNkc0RhKzNuNFROejBiMGhycHBsQWdCYlpkNkxRT1ZRcHF4N2dpZ25oamhvdUNDSUlBYmR0M3dPTlBQNHMxYTliZzhUODlEQURvZEhBWG5IYm1XWGprb1FkU1R5UjVQTjhWMHJWbmk5bXlBLzFxRE40YStpRSttVEFKbjB5WWhHNUhIK05LQUtxNC8rRkg4TUpyYjJMRGhocGNmUDdaV0xWcUpZNDk3Z1E4K3VUZjhQb3JMK0hsRi9JMkgzazgzeWtLcE1DV1JscGdBUGpvZzJGNDc1MjM4ZDQ3YjJQcGtuVHZyeE0vbTRENTgrYWlkZXNEMGI1ak5FODBkY3BrTEZxMEVKME83b0tXTFpNckZSN1BkNDhDS1hCTnRDNVlqd1YybzBuQkEvZmNoVnNIRDhLdGd3ZGg1dlJwamtURTAwOCtnZDRuOXNCckw3K0l1eC80STlxMGE0Y2xpeGZoOGw5ZWpOMzMyQU1EQjkza1h1THhmS2NvaUFMUG1ERVgwNmZQd05LbHkvSVcrR2ZObm8wRkMrck9qcTlZc1FMVHAwL0hwazIxMmJqNUN4WmdWbUkyZWQyNjlaZzJmUWJXckZtRFRDYURlKzY4SFNOSGpNQkp2VTRIQUN4ZHNoaC9mdmhCN0h2Z1FXalJNdWZZTEFCZ3hvd1ptRDVqaGh2dDhXeDNGRVNCNTgyZGk3bno1K09ybFN2Y0pDeGF2QVRMbDllZExQdjY2eldZTzM4K01wbTZDZGZseTVkajBlSzZidlNHRFRXWU4yOGVhbXFpeVRFMUJoOStNQXc3N2J3TDRxWE5zaEVmWWVHaXhkaG52N3hqc0ppM1lBSG16cHZuUm5zODJ4MEZVV0FBQ01NZ2RVWTVEQUpJVUJjdlFvUkJrRE5nbGtCc25JVkVFSVpaWlFXQTJvMGJVZHA4aDJ6YzZsVXJFUVlCZHR3cGZ3dHRHSVFJaStvN1FiYmxXQThSWjdqeDlXR01hV1dNNldPTXVjQ0dibzNaSk9GYzE4Y1kwOFZKTHpYR1pIY3NxV29MNitvbGkwYmVJRTR5eHR4aGpPbnY3dmd4eHV4bmpEbldpZXRtak1tdUFSdGp1bGkzTmttWnN4TFBjNEhyY2NNWXM3TXg1bXBWdmJPMnR2WTBkeCt4OVJ4eW9hcmVhWXo1dGQwTjFTREdtRE1TOXp2REdKTXo2V0hMR2FmM1Nka0pCVlZ0cnFvWDIvdGVZWXo1dnBNZTJtdERSSG51YTcxdk5JdGxuSEpja1BMK3N1bXErbk4zWDdlcVNtMXQ3V25HbUQ4WVk2NTJ5N0ExNUd0Y0UyaFdVb0l3Q0ZNVldJSUFJblhLU1Vxa25Fa1pDU0FKQlNhSk1BeHlUaTJKNUNwNUpwT0JCQUdDTU05TENvSWdRSkM0NTlaZ2xlVitWWDFoQzNZS0hRYmdkcnN4L2xEclJXSnpoOFJoci9zZGdJNnEyaFhBY0ZVOU9wRytrejIySjRqS3RpdUF4NU9OZzZyK0FzQ0RKT2ZZNDNnZkpKV0o1SkhKczZ2MjJzdFU5ZDJFVzVnTEFHUWJMQnYzSUlBVDdOYlNRd0RzNzZRUEEzQ1FxczRKZ3VBZVZjM1pUYWFxOTlqVFcvOW5ONjg4a2t4M3NYbmVDK0I0K3g2dkFmQktvdkdpZmRiTGJQcHhxam8rK1kzc29mNzM3RGJOeFhaanhtaTczenlXYVFiZ0dWVnRab3c1UUZVL0JGQWNyNkVueW5GeTR0bXpSdzNkY2hwakxsZlZvYzQzdVRJSWdsc0J6TEwxNGUzR05PaU5JVi9qbWtnUUJCRG1aeGVJSUVnb05ta3RjS0w0ZVRKMkRaaVNVR0JHY1VuQ0lJQ2s3QllNZ3lEWG9tOEZxdm9qQUcxSVBtRzlOelNXMlNMU24yUmZBQy9hRDk4WXBwTWNJQ0pYQVJpdnFudTVBcHVobmQyTS8zZVN2d0x3VDFYTjJiYVh0c09TNUNLU2FUdVpzcEM4ZzJRL2t2MUU1TWs0M2g3SWJ3UGdXWktQMjIyRk9WNHlBWFFrT1p6azN3QmNCR0I2SXl2eGZTUUhrTHc1UGowVVl6ZG1ETGZwbHdMNFBMR3RGYXJhRThDZUpIdUt5RU1rendPd0lLVnhvVDNFOEk2SURCR1JaNUxwbHJzU3ovNm9tNWdvNXlXMlFTbENYZDV0QUl3aitYY0FGd01ZMVlDVGdTMGlYK09hUWtremhHRzZCUTdDL0M1MFpEVVR5aGxJamlXTmxEeTNDeTNpeUNES2g2bjNEQkVVcmd0OUxvQTNBYnhzdlhEazN6Q2R2WTB4TjZ2cWJhcDZwdlVEdFZtc2haeWdxbE5zUmNqeGJORUkvZ3FnazZyT1Z0WEhiYVYwbFNrSE8vSDRpREhtSU9zdU5rMnhhSHNoSDZ2cXg4a2hoYlZXZDZucU82bzZGc0NocmtjT2tnK282dFdxT3RWNjVIeWxNU2VNVlBWbCt6NytBZUE1NXhvQ09FcFZCNnZxdy9ZQXhhaEVlaHZyREtBV1VSa01nRExiVThnK284M3ozZWgyR2g5a2NIa204ZXhudTRrQWZxT3FOd040ekQ3YlJ0VGwvYmp0SWN5eW5raGZKbGszaTdzVk5MWXlOa2hKYklFVGlob1RTbTUzVmloV09ldGtBZ2tRNW5TemJSZmFVZUFjZjlLTXhycXBWai9JemErcDJJOTh2ajNmZW9vOVl0WllTMXByRCtXdnRHZUpXN2dDYWRqOXRLZlUxTlNjYUwxUXVHNVNXWStDeFN3RTBNbTZyOG1vYXJreEpuK21MNEY5enh2dEVjbjc2OWticXdENlc3L1lmWkw3c2xVMUpQbUFpT3dMNEdGVi9hV3FQcFZ6c1dvWnlmMnM4cllIVUI2UE94dUM1QlgyM1o4TFlLQXhabWRIWkwxOXoxK1QzTm1XTTZZR1FQSXdBdXdoQW5jYkl3SGNhdC9kSDV5MG1Cc1R6NTdXcUs2eTVhZ0ZzTFBUUU15eVBhTnpiVDBZYmM5SWJ6WDV0YjhwTkxPV05zVWFSbVBnUlBjNGE0RVRNaUxPR0JnSWdqQm5ERXlSdkM1MFpJSHo2M0lRQmdXeHdLcmFIc0FQYkt1OXpJNG4wNDZZcGJGSVJQNGtJdmVRSEdGUHNUU0dXcEpmbHBhV0xnT3dJUFphWVZsSnNsWlZPOW9LMGduQVVzY3FQVUh5S3BJVjFnSDlHdnNNUUYwRDRCTHZFUjVwRzQzNmhnckw3Q2I4UmZFZVlVUjU3cTJxMHpVNmcvd0N5VWNCN0pVY3J3S29VTlZEU0E0amVhTnRGTk1haWh6c1NhVXZBY3l3M1ZLM0lhd1FrVCtSL0sycXJyTmQ0WmlSSkk5WDFYMDFtdHpiMlhvUStkQjVaMnF0NGlXcStndnJLRDRIa2wra1BYdUNsNnl2OER1czVjOWlyZnFGSkVmYklWVlFXMXU3V2YvYmpTRmY0NXBBQ2V3a1ZzcllLckxNdVpOWVlSRG1HQkVKZ2x6bHRPUGRIQXNjajUzcmhCQksrcmc3ZEN6NlZ2QnpBSytKeUVNaThoQ0Eyd0QwYnNBSlc0eFIxVnJVVmQ3bFNROFZEV0JJZGxYVldjYVlXZFpmVlhaY2FrOC8zYTJxN3h0alBnWHdwSFdwaytRaFkwdy9WUjJycWhQdDJHdDBJajBUZHlrUlZVd2xtWFhRVG5LZ3FxNUt1cUd4bFgwamdHR3FPc3VHZDJNRnRZY08zZ0l3VVZWSFd0YzM5eVFPRDZpMWJLK282a2hWZmNkT3RHVWQwZGZEUnRzdG42V3E0d0U4WnM4UXg5UTY3bktXQWNqT0dZaklwNWxNNWw3YmpSNWhUMko5U1BLTnhEV0lOL09UbkVQeUdnQi9kbWFTaytXWXBhb2ZPQTNoeG9UbFh3RmdCK2NZNG4wQWhxanFKNm82Z2VSYnhjWEZreFBwVFNhLzlqZUJaaVh4TWxMdTJCWjJRaWs1UVNVU3p6RFhFVGd6ekZFWE9zeWR4SEs2MEFRUUZvV1FGQXNjaG9WWlJpSjVKOG4raWQvalJLUkQ0cThGcEVMeURldEhLNjY4QSt6eHNnYXhGYXNWeWZZaTBsWkVEaEtSU1k3TUVKSWRyUHVhQTBUaytXUzZpSXdoMmRyT3pwNU1zcGN6M25yWmRVS2dxbGRZeDNRZ3VWeEVEckNWTGd2SnppVGJrR3hQc3IzMUdwSlZVRnVlcnRicUgraitkUU03NmZVVGt0ZmFNWExPME1ERjVubVk5VG5WWGtUMkZaR3JuWHZlSEpmVHhuZXpzK0Zad2pDOHpSNzFHMmp2KzV2a3NVYVM2MGorT0hiQ1IvSlpraisxVHZmeXltSERxVTQ1RGlNNTFmNmVTWEwvcEpVV2tlSDJtMXdKNERnQTU2WWRyV3dLQlZGZ29BUkJFS2FPZ1YwTExCUUVRWmlqNTY0RnppcXdzNHdVQkxsajRDQUl3UlFMSElSaFFaYVJTSzVKZmdqN3NWWnM3dVdUM0ppY09CS1I5WnViU0lLOXp1WWZoOVNHd2pvU0h5OGlYN2hwaU5LL0ZwSFA3REhGbkNPS0lyTEJ0WHdpc2paNTlKRGtHdmZZSWNtVnliSzVSeHNaSGR1YlMzSUN5ZndkUGRGOXZpQTVRVVFXeGdyUUVMYjdITjh6ejFxVFhKY3NwMzN1dk9PUzlvamorRFRuNjRsdm1sVElGY25qZms0NVZzVEhIcDMwdUFjVFg1L3oza211RXBGUFJlVGZtNnMvVzBKKzdXOEtKWkhWRTRwcmdCRUVJWXFTbGxNaTVVd0tCbzV5RW5ZV09tRmRtYlhBVVp4SVVPL01keGdFQmJIQUhzKzJUbjd0YndJbEtFRVlobm1UVEtxUnZuVTU5SEFjMmpYeUR5WWlDSXVLY21laGc5eGxId29SRnVWYTF5Q282MElIWVlqTCtsNk5JQXpqSlpBY3dxSWlCS0hyMWRUajJmNG9pQUpuTGJDSVk0QVZqeng0SDFRVmc0YmNoa01QUHlKUzRMU3RsSG5MU0xucndHU2t3RUVZb1ArTmczSDBzY2RqYXZVa0RIc3Y3MitFUmN0SXllNjJ4N09kVWhBRkxrRzBrYU80V1hiN2FKWXAxWk13Wk5BQUFNRE50OStKemwwT3lWM1B0ZXZBN2thT2FIenJqSUhERVAxdkhJd2VKNXlFS2RWVkdESm9JRFk2SGptQ01FUlJVUkhDbEMyV0hzLzJSa0VVT01QaU5XRVFmbjFLNzlOeCtKRkh1Y21vbnZnWmJybWhQMGhCOTJPUFJ4Z1c1U2huRUFUNVkyREhBZ2NpS0M0cXh2RW45c1RVNm1vTUhuZ3ROdGpUU2pGaEdHTFFMYmVodExTNWhrWEJvcHhFajJjN3BDQUszUE9vemw4RUFYbzFLeW45K3RZNzcwUFhGQ1dlK0drbGJocHdEVFp0MnBSaWdYTTNhY1JkNk9TNmNqeUpOWFZLTlc2OHJpOXFhbkluRzRNd3hHOS9kenQ2SEgrU0JtRTR2RlJyKytZSWVEemJJUVZSWUFBNCtyQXU1UXpRcTdpNGFNM3Y3MzRBaDNYdDVvcmcwOHJ4R05TL0gycHJuWjFzZFgvdHp2NWszaDVuZ3BnNnVRb0QrMTJCOWV0ei9tNFdnaURBYjRmY2hoNG5uS3dVZkxoYWFzL28yclZyM25LQ3g3TzlVVEFGQm9EdUIzY29JK1RVb3JCbzdXMzNQSUJERHM5M00xdzViZ3h1dks0dk5tM0tYZUpNVG41cDlqOTFUSjgyQmRkZGRSbldyY3Q2N2dRUXJTSGZlTXZ2Y2R5SlBaWGdpT2JjNWJUZVhicmthcmpIczUxU1VBVUdnRzQvYlRjeUVOTzd1S2g0M1IzM1BvaWZIbnE0SzRKeG96L0JLc2Q3UjFKZkkyWE8xZURSNWFPd2JxMmp2Q0s0WWZEdmNNTEp2VlRCc3BaRm1kNWR1dXpwbGRmem5hSGdDZ3dBUjNUcCtCRkRuRlpjM0d6ZEhmYzlqSU1QT2N3VmFSQk5PSFd2RHhIQndKdUc0S1JUZWl2SWNsUEtYaDA3ZHN6VmNJOW5PK2NiVVdBQTZOYTUvUWNLbmxIY3JObjZPKy8vSXpwM2FlQVVIb25kZHQ4ZDdUcDBBa24wT09Ia3lBQ25ISTZBVmQ0QmcyNUJ6MU5QVndDZlNNMnFYc2UwYlp1MzFjN2o4V3dsb3lxclR5eXJxRm8zdkh5OGRqcjRwMnI3eGpuaGlHNUg2MGRqUHRYM3k4YnFrRHZ1MXZMS2FuM3F1VmUwUmN1V2ViSWlvZ04vZTR1V1ZWU1o4c3FxanorZU5pM2ZMYVhINHlrYzVlTW5uVnhXVWJWdVdQbDQ3ZGk1UzU1U0F0QnVSeCtySThaOHFtVVZWZnJYNTEvVmx0L2JNVTlHUkxUL2pZTzFyS0xLbEZWTUdqMTI3RXp2MmQzaitUYjR1S0txWjFsbDFicGg1ZU8wUTZmT2Vjb0pRSTg2cG9mKzVlOHY2dmQyekZkZVV2UzZHMjZ5eWxzOVp1eE1yN3dlejdkS1dXVjFyN0tLcXZYRHlzWnArNDZkOHBRMFVsU214bDB6Y0ZDa3ZPT3J4bFZXemtyKzhXaVB4L050VVQ2aCt0U3lpcXIxNzVlTjFiWWRPdVlwcXh0STZ0WDliOUN5aWlvdHE2Z2FQK0t6ejdJdVFUMGV6MytBanl1bW5EYXFZbExOKzZQR2FwdDJIZktVTnFtOGZhKzczaXB2ZFVWNWVWVytGM2VQeC9QdFUxNVpkVVpaUlZYTjBGRmo5S0MyN1ZPVjk4cHJCdGd4YjlXRW9hTkhGOHlidmNmaktRQ2p4bGYvckt5aXF1YTlrV1AwSjIzYTVTanZGZjJ1aTVTM3N1clQ0ZVBHdWE1RVBSN1B0a0I1WmRYUFI0MmZ0T0c5RWFQMXdJUGFLRW05dk8rMVZubXJQeHN4b2pMcFZ0WGo4U1JJMytyMExWTmVPZVZzTlp1ZVhidDJiZkhJajRiamxONW5xSUxWaGtVOWp1bHlZTjJmTnZSNFBEbHNFd29NQUo5TXFENDNZL1NaeUhrM0p5T283WEZVNTg2cFhoYzlIay9FTnFQQUFGQmVNZmw4cFJrUWhPYkVJenAyWE9hbWV6eWViWnpHL0wwY2o4Zmo4WGc4SG8vSDQvRjRQQjZQeCtQeGVEd2VqOGZqOFhnOEhvL0g0L0Y0UEI2UHgrUHhlRHdlajhmajhYZzhIby9INC9GNHRuWCtIeW9jdnQxcnhvdE5BQUFBQUVsRlRrU3VRbUNDIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiBpZD0iaW1nMSI+PC9pbWFnZT48Y2xpcFBhdGggaWQ9ImNsaXAyIj48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjA1NzE0MiIgaGVpZ2h0PSI3ODg1NzEiLz48L2NsaXBQYXRoPjwvZGVmcz48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDApIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDkgLTQxNSkiPjxnIHRyYW5zZm9ybT0ibWF0cml4KDAuMDAwMTA1IDAgMCAwLjAwMDEwNSA0OSA0MTUpIj48ZyBjbGlwLXBhdGg9InVybCgjY2xpcDIpIiB0cmFuc2Zvcm09Im1hdHJpeCgxIDAgMCAxLjAwMjQyIC0wLjAwNDA4MDYzIC0wLjAyODMyMDMpIj48dXNlIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHhsaW5rOmhyZWY9IiNpbWcxIiB0cmFuc2Zvcm09InNjYWxlKDg1NzEuNDIgODU3MS40MikiPjwvdXNlPjwvZz48L2c+PC9nPjwvc3ZnPg==" alt="Logo" style="height:40px;width:auto;object-fit:contain">
+            <img src="__BASE64_0__" alt="Logo" style="height:40px;width:auto;object-fit:contain; margin-bottom: 1.5rem;">
             <h1>Aldrin Raphael Business Brokers</h1>
             <p class="tagline">Empathy-Driven Dealmaking</p>
             <p class="descriptor">Canada-based Business Brokerage specializing in sell-side advisory, buy-side advisory, valuations, and growth advisory.</p>
@@ -1049,7 +1083,7 @@
             <div class="container">
                 <div class="section-header is-open">
                     <h2 class="section-title">Our Advisory Services</h2>
-                    <p>Our core strengths, designed to support you at every stage of your business journey.</p>
+                    <p>Our core strengths, designed to support you at every stage of your business journey. Select a service to explore our approach.</p>
                 </div>
                 <div class="section-content" style="display:block;">
                     <div class="services-grid">
@@ -1059,176 +1093,210 @@
             </div>
         </section>
 
-        <!-- The Challenge Section -->
-        <section class="section" id="challenge" data-nav="The Challenge">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">The Challenge of Selling a Business <span class="icon">&#9662;</span></h2>
-                    <p>Selling a business is one of the most significant financial events of your life.</p>
-                </div>
-                <div class="section-content">
-                    <div class="advantages-grid">
-                        <!-- Challenges will be injected by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- The ARBB Process Section -->
-        <section class="section" id="process" data-nav="Process">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">The ARBB Process <span class="icon">&#9662;</span></h2>
-                    <p>Six Steps Designed to Protect Your Value and Get Your Deal Done.</p>
-                </div>
-                <div class="section-content">
-                    <div class="timeline">
-                        <!-- Timeline items will be injected by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Key Metrics Section -->
-        <section class="section" id="key-metrics" data-nav="Reach">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Unmatched Digital Reach & Engagement <span class="icon">&#9662;</span></h2>
-                    <p>Our data-driven approach connects your business with a global pool of qualified buyers. <br><small>Source: aldrin.ca — Google Analytics, Jan 1 – Dec 31, 2025</small></p>
-                </div>
-                <div class="section-content">
-                    <div class="metrics-grid">
-                        <!-- Metrics will be injected by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- Investment Highlights Section -->
-        <section class="section dark-section" id="investment-highlights" data-nav="Highlights">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Investment Highlights <span class="icon">&#9662;</span></h2>
-                    <p>Key value drivers that position this opportunity for significant returns.</p>
-                </div>
-                <div class="section-content">
-                    <div class="highlights-grid">
-                        <div class="highlight-card card">
-                            <h3>Strong Financial Performance</h3>
-                            <p>Demonstrated consistent revenue growth and robust profitability, with clear visibility into future earnings based on a strong sales pipeline and recurring revenue streams.</p>
-                            <div class="data-point">31.7% YoY Page View Growth</div>
+        <!-- Service-Specific Content Wrapper -->
+        <div id="service-content-wrapper">
+            
+            <div id="sell-side-advisory-content" class="service-content-panel">
+                <!-- The Challenge Section -->
+                <section class="section" id="challenge" data-nav="The Challenge">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">The Challenge of Selling a Business <span class="icon">&#9662;</span></h2>
+                            <p>Selling a business is one of the most significant financial events of your life.</p>
                         </div>
-                        <div class="highlight-card card">
-                            <h3>Diversified & High-Quality Customer Base</h3>
-                            <p>A broad, loyal customer base across multiple industries with no single client concentration, ensuring stability and reducing market-specific risks.</p>
-                            <div class="data-point">20+ Industries Served</div>
-                        </div>
-                        <div class="highlight-card card">
-                            <h3>Proprietary Technology & Digital Platform</h3>
-                            <p>Leverages a powerful, SEO-optimized digital platform and a proprietary database of over 59,500 qualified buyers, creating a significant competitive moat and efficient lead generation engine.</p>
-                            <div class="data-point">59,500+ Buyers in Database</div>
+                        <div class="section-content">
+                            <div class="advantages-grid">
+                                <!-- Challenges will be injected by JS -->
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <!-- Traction Section -->
-        <section class="section" id="traction" data-nav="Traction">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Proven Traction & Results <span class="icon">&#9662;</span></h2>
-                    <p>The company has demonstrated significant traction through a large volume of transactions, a substantial proprietary buyer database, and strong digital marketing performance.</p>
-                </div>
-                <div class="section-content">
-                    <div class="traction-container">
-                        <div class="milestones-grid">
-                            <!-- Milestones will be injected by JS -->
+                <!-- The ARBB Process Section -->
+                <section class="section" id="process" data-nav="Process">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">The ARBB Process <span class="icon">&#9662;</span></h2>
+                            <p>Six Steps Designed to Protect Your Value and Get Your Deal Done.</p>
                         </div>
-                        <div class="growth-chart-container">
-                            <canvas id="growthChart"></canvas>
+                        <div class="section-content">
+                            <div class="timeline">
+                                <!-- Timeline items will be injected by JS -->
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <!-- Competitive Advantages Section -->
-        <section class="section" id="advantages" data-nav="Advantages">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Competitive Advantages <span class="icon">&#9662;</span></h2>
-                    <p>What sets Aldrin Raphael Business Brokers apart.</p>
-                </div>
-                <div class="section-content">
-                    <div class="advantages-grid">
-                        <!-- Advantages will be injected by JS -->
+                <!-- Key Metrics Section -->
+                <section class="section" id="key-metrics" data-nav="Reach">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Unmatched Digital Reach & Engagement <span class="icon">&#9662;</span></h2>
+                            <p>Our data-driven approach connects your business with a global pool of qualified buyers. <br><small>Source: aldrin.ca — Google Analytics, Jan 1 – Dec 31, 2025</small></p>
+                        </div>
+                        <div class="section-content">
+                            <div class="metrics-grid">
+                                <!-- Metrics will be injected by JS -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
+                
+                <!-- Investment Highlights Section -->
+                <section class="section dark-section" id="investment-highlights" data-nav="Highlights">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Investment Highlights <span class="icon">&#9662;</span></h2>
+                            <p>Key value drivers that position this opportunity for significant returns.</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="highlights-grid">
+                                <div class="highlight-card card">
+                                    <h3>Strong Financial Performance</h3>
+                                    <p>Demonstrated consistent revenue growth and robust profitability, with clear visibility into future earnings based on a strong sales pipeline and recurring revenue streams.</p>
+                                    <div class="data-point">31.7% YoY Page View Growth</div>
+                                </div>
+                                <div class="highlight-card card">
+                                    <h3>Diversified & High-Quality Customer Base</h3>
+                                    <p>A broad, loyal customer base across multiple industries with no single client concentration, ensuring stability and reducing market-specific risks.</p>
+                                    <div class="data-point">20+ Industries Served</div>
+                                </div>
+                                <div class="highlight-card card">
+                                    <h3>Proprietary Technology & Digital Platform</h3>
+                                    <p>Leverages a powerful, SEO-optimized digital platform and a proprietary database of over 59,500 qualified buyers, creating a significant competitive moat and efficient lead generation engine.</p>
+                                    <div class="data-point">59,500+ Buyers in Database</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-        <!-- Team Structure Section -->
-        <section class="section" id="team-structure" data-nav="Team">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">ARBB. Not One Broker. One Team. <span class="icon">&#9662;</span></h2>
-                    <p>22 advisors. Every discipline. All Working For You.</p>
-                </div>
-                <div class="section-content">
-                    <div class="team-structure-grid">
-                        <!-- Team roles will be injected by JS -->
+                <!-- Traction Section -->
+                <section class="section" id="traction" data-nav="Traction">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Proven Traction & Results <span class="icon">&#9662;</span></h2>
+                            <p>The company has demonstrated significant traction through a large volume of transactions, a substantial proprietary buyer database, and strong digital marketing performance.</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="traction-container">
+                                <div class="milestones-grid">
+                                    <!-- Milestones will be injected by JS -->
+                                </div>
+                                <div class="growth-chart-container">
+                                    <canvas id="growthChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <!-- Confidentiality Section -->
-        <section class="section" id="confidentiality" data-nav="Confidentiality">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Confidentiality Promise <span class="icon">&#9662;</span></h2>
-                    <p>Confidentiality is not a feature — it is the foundation of how we operate.</p>
-                </div>
-                <div class="section-content">
-                    <div class="confidentiality-grid">
-                        <!-- Confidentiality points will be injected by JS -->
+                <!-- Competitive Advantages Section -->
+                <section class="section" id="advantages" data-nav="Advantages">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Our Competitive Advantages <span class="icon">&#9662;</span></h2>
+                            <p>What sets Aldrin Raphael Business Brokers apart.</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="advantages-grid">
+                                <!-- Advantages will be injected by JS -->
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <!-- Awards & Affiliations Section -->
-        <section class="section" id="awards" data-nav="Awards">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Awards, Memberships, Affiliations & Tools <span class="icon">&#9662;</span></h2>
-                    <p>The Standard We Hold Ourselves To</p>
-                </div>
-                <div class="section-content">
-                    <div class="awards-tabs">
-                        <!-- Tabs will be injected by JS -->
+                <!-- Team Structure Section -->
+                <section class="section" id="team-structure" data-nav="Team">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">ARBB. Not One Broker. One Team. <span class="icon">&#9662;</span></h2>
+                            <p>22 advisors. Every discipline. All Working For You.</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="team-structure-grid">
+                                <!-- Team roles will be injected by JS -->
+                            </div>
+                        </div>
                     </div>
-                    <div class="awards-tab-content">
-                        <!-- Tab content will be injected by JS -->
-                    </div>
-                </div>
-            </div>
-        </section>
+                </section>
 
-        <!-- Testimonials Section -->
-        <section class="section" id="testimonials" data-nav="Testimonials">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">What Our Clients Say <span class="icon">&#9662;</span></h2>
-                </div>
-                <div class="section-content">
-                    <div class="testimonials-grid">
-                        <!-- Testimonials will be injected by JS -->
+                <!-- Confidentiality Section -->
+                <section class="section" id="confidentiality" data-nav="Confidentiality">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Our Confidentiality Promise <span class="icon">&#9662;</span></h2>
+                            <p>Confidentiality is not a feature — it is the foundation of how we operate.</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="confidentiality-grid">
+                                <!-- Confidentiality points will be injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Awards & Affiliations Section -->
+                <section class="section" id="awards" data-nav="Awards">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">Awards, Memberships, Affiliations & Tools <span class="icon">&#9662;</span></h2>
+                            <p>The Standard We Hold Ourselves To</p>
+                        </div>
+                        <div class="section-content">
+                            <div class="awards-tabs">
+                                <!-- Tabs will be injected by JS -->
+                            </div>
+                            <div class="awards-tab-content">
+                                <!-- Tab content will be injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Testimonials Section -->
+                <section class="section" id="testimonials" data-nav="Testimonials">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2 class="section-title">What Our Clients Say <span class="icon">&#9662;</span></h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="testimonials-grid">
+                                <!-- Testimonials will be injected by JS -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <div id="buyside-advisory-content" class="service-content-panel" style="display: none;">
+                <div class="container section" style="min-height: 50vh; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-primary);">Buy-Side Advisory Content</h2>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 1rem auto 0;">Detailed information about our Buy-Side Advisory process, advantages, and case studies would be presented here.</p>
                     </div>
                 </div>
             </div>
-        </section>
+
+            <div id="valuations-content" class="service-content-panel" style="display: none;">
+                <div class="container section" style="min-height: 50vh; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-primary);">Valuations Content</h2>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 1rem auto 0;">Detailed information about our Valuations services, methodologies, and report types would be presented here.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="growth-advisory-content" class="service-content-panel" style="display: none;">
+                <div class="container section" style="min-height: 50vh; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <h2 style="font-family: var(--font-heading); font-size: 2.5rem; color: var(--text-primary);">Growth Advisory Content</h2>
+                        <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 600px; margin: 1rem auto 0;">Detailed information about our Growth Advisory programs, designed to increase your company's value, would be presented here.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </main>
 
@@ -1285,7 +1353,7 @@
             "description": "A R Business Brokers guides business owners through the most meaningful transition of their lives with empathy, clarity, and steady momentum. The firm works confidentially behind the scenes to manage the sale process, allowing owners to stay focused on running their business. They emphasize a simplified journey for every unique person and deal.",
             "hero_stats": [{ "label": "YEARS IN OPERATION", "value": "14+", "detail": "" }, { "label": "EXPERIENCED ADVISORY TEAM", "value": "22", "detail": "" }, { "label": "BUSINESSES SOLD", "value": "348+", "detail": "* as of February 2026" }, { "label": "INDUSTRIES SERVED", "value": "20+", "detail": "" }, { "label": "YEARS COMBINED EXPERIENCE", "value": "100+", "detail": "" }, { "label": "TOTAL TRANSACTION VALUE ADVISED", "value": "654M", "detail": "* as of February 2026", "prefix": "$" }],
             "key_metrics": [{ "label": "Annual Page Views", "value": "295K+", "description": "Annual Page Views (up 31.7% YoY)" }, { "label": "Traffic from Organic Google Search", "value": "46", "description": "Percentage of traffic from Organic Google Search.", "suffix": "%" }, { "label": "Google Organic Visits to Listings Page", "value": "81K+", "description": "Google Organic Visits to Listings Page in 2025." }, { "label": "Growth in Google Traffic to Listings", "value": "94", "description": "Growth in Google Traffic to Listings — 2024 vs 2025.", "suffix": "%" }, { "label": "Organic Search Visits", "value": "81,494", "description": "81,494 visits from organic search alone. #1 on Google." }, { "label": "Daily Inquiries", "value": "30-50", "description": "Qualified buyer inquiries reaching us every single day." }, { "label": "Average Engagement Time", "value": "3 Min 26 Sec", "description": "Buyers aren't bouncing. They're reading, researching, and ready to act." }, { "label": "Qualified Buyers in Database", "value": "59,500+", "description": "A proprietary database of pre-screened buyers actively seeking businesses like yours." }, { "label": "Monthly visitors on BizBuySell", "value": "3M+", "description": "Monthly visitors on BizBuySell alone." }, { "label": "Institutional investors & M&A advisors", "value": "20,000+", "description": "Reach to institutional investors and M&A advisors." }],
-            "product_features": [{ "title": "SELL SIDE ADVISORY", "description": "Our Core Strength. Our seasoned expertise and industry-leading marketing ensure your business stands out. With comprehensive CIMs, targeted outreach, and unmatched SEO-driven lead generation, we position your business to attract only qualified, serious buyers.", "icon_suggestion": "trending-up" }, { "title": "BUYSIDE ADVISORY", "description": "Finding the right business to buy is harder than most people expect. Good deals rarely hit the market publicly. We built our buy-side advisory practice to solve exactly that problem. Two program levels, whether you need us to find the right opportunity or manage a transaction you have already identified.", "icon_suggestion": "shopping-cart" }, { "title": "VALUATIONS", "description": "Our dedicated valuations team produces three levels of professionally prepared reports, from strategic pricing analysis through to CBV-certified calculation valuations. Used for exit planning, financing, tax and estate matters, shareholder transactions, and formal dispute resolution, our reports are relied upon by business owners, lenders, accountants, and legal advisors across Canada.", "icon_suggestion": "calculator" }, { "title": "GROWTH ADVISORY", "description": "Our growth advisory practice works with owners who are not ready to sell yet but want to be in the strongest possible position when they are. We identify the gaps that buyers will find, fix them before they become problems, and build a plan that grows enterprise value on purpose.", "icon_suggestion": "line-chart" }],
+            "product_features": [{ "title": "SELL SIDE ADVISORY", "description": "Our Core Strength. Our seasoned expertise and industry-leading marketing ensure your business stands out. With comprehensive CIMs, targeted outreach, and unmatched SEO-driven lead generation, we position your business to attract only qualified, serious buyers.", "icon_suggestion": "trending-up", "targetId": "sell-side-advisory-content" }, { "title": "BUYSIDE ADVISORY", "description": "Finding the right business to buy is harder than most people expect. Good deals rarely hit the market publicly. We built our buy-side advisory practice to solve exactly that problem. Two program levels, whether you need us to find the right opportunity or manage a transaction you have already identified.", "icon_suggestion": "shopping-cart", "targetId": "buyside-advisory-content" }, { "title": "VALUATIONS", "description": "Our dedicated valuations team produces three levels of professionally prepared reports, from strategic pricing analysis through to CBV-certified calculation valuations. Used for exit planning, financing, tax and estate matters, shareholder transactions, and formal dispute resolution, our reports are relied upon by business owners, lenders, accountants, and legal advisors across Canada.", "icon_suggestion": "calculator", "targetId": "valuations-content" }, { "title": "GROWTH ADVISORY", "description": "Our growth advisory practice works with owners who are not ready to sell yet but want to be in the strongest possible position when they are. We identify the gaps that buyers will find, fix them before they become problems, and build a plan that grows enterprise value on purpose.", "icon_suggestion": "line-chart", "targetId": "growth-advisory-content" }],
             "traction": { "milestones": [{ "label": "Businesses Sold", "value": "348+", "date": "as of February 2026" }, { "label": "Total Transaction Value Advised", "value": "$654M+", "date": "as of February 2026" }, { "label": "Years in Operation", "value": "14+", "date": null }, { "label": "Verified Google Reviews", "value": "227+", "date": null }, { "label": "Google Review Score", "value": "4.9", "date": null }], "growth_data": [{ "period": "YoY", "value": "31.7%", "metric_name": "Annual Page Views Growth" }, { "period": "2024 vs 2025", "value": "94%", "metric_name": "Growth in Google Traffic to Listings" }] },
             "competitive_advantages": [{ "title": "Comprehensive, Multi-Disciplinary Team", "description": "Clients are supported by a full team, not a single broker. The team includes 12 brokers, a dedicated valuations group, deal support, and a full marketing team, all working in the same direction.", "evidence": "22 people working for you" }, { "title": "Performance-Based, Aligned Fee Structure", "description": "The firm operates on a success-fee model with no retainers or monthly fees. This ensures priorities are aligned with the seller, as the firm only gets paid upon a successful closing.", "evidence": "14 years of advising sellers with no retainers" }, { "title": "Established Local Market Leadership", "description": "As a 100% Canadian owned and managed firm, the company is locally built and independently owned, with no U.S. franchise or offshore head office, ensuring deep roots and accountability in the local market.", "evidence": "100% Canadian Owned & Managed" }, { "title": "Founder-Led, Empathetic Approach", "description": "The founder's personal experience of selling a business shapes the firm's empathetic approach to advising, listening, and treating clients' time with respect. The firm has guided hundreds of owners through the process.", "evidence": "Founder has been through it himself" }, { "title": "Extensive Proprietary Buyer Database and Digital Reach", "description": "A significant competitive advantage in sourcing buyers through a proprietary database of over 59,500 qualified buyers and a strong online presence that generates 30-50 daily inquiries.", "evidence": "59,500+ qualified buyers" }, { "title": "Rigorous Confidentiality Protocols", "description": "Confidentiality is a foundational principle, protected through blind marketing, mandatory NDAs before disclosure, buyer qualification, secure data rooms, and protected site visits.", "evidence": "Identity is protected from day one" }],
             "additional_sections": {
@@ -1428,20 +1496,23 @@
         // Services
         const servicesGrid = document.querySelector('.services-grid');
         const icons = {
-            'trending-up': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>`,
-            'shopping-cart': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>`,
-            'calculator': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="16" y1="14" x2="8" y2="14"></line><line x1="16" y1="18" x2="8" y2="18"></line><line x1="10" y1="10" x2="14" y2="10"></line></svg>`,
-            'line-chart': `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"></path><path d="m19 9-5 5-4-4-3 3"></path></svg>`
+            'trending-up': `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.05 17.05c.02-1.2.3-2.38.8-3.5" /><path d="M17.8 3.2c1.44.53 2.65 1.4 3.56 2.56" /><path d="M3.2 6.24c.53-1.44 1.4-2.65 2.56-3.56" /><path d="M17.05 21.95c-1.2-.02-2.38-.3-3.5-.8" /><path d="M20.8 14.8c.53-1.44.8-2.9.8-4.4" /><path d="M3.2 9.2c-.02 1.5-.3 2.96-.8 4.4" /><path d="M9.2 20.8c1.5.02 2.96.3 4.4.8" /><path d="M14.8 3.2c-1.44-.53-2.9-.8-4.4-.8" /><path d="M12 12a5 5 0 0 0-5 5" /><path d="M12 7v5h5" /></svg>`,
+            'shopping-cart': `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1" /><circle cx="19" cy="21" r="1" /><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" /></svg>`,
+            'calculator': `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2" /><line x1="8" x2="16" y1="6" y2="6" /><line x1="16" x2="16" y1="14" y2="18" /><line x1="12" x2="12" y1="10" y2="18" /><line x1="8" x2="8" y1="10" y2="18" /></svg>`,
+            'line-chart': `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18" /><path d="m19 9-5 5-4-4-3 3" /></svg>`
         };
-        DATA.product_features.forEach(feature => {
+        DATA.product_features.forEach((feature, index) => {
             const card = document.createElement('div');
             card.className = 'service-card card';
+            card.dataset.target = feature.targetId;
+            if (index === 0) {
+                card.classList.add('active');
+            }
             card.innerHTML = `
                 ${icons[feature.icon_suggestion] || ''}
                 <h3>${feature.title}</h3>
                 <p>${feature.description}</p>
             `;
-            card.addEventListener('click', () => openModal(feature.title, `<p>${feature.description}</p>`));
             servicesGrid.appendChild(card);
         });
 
@@ -1651,64 +1722,130 @@
                     const content = header.nextElementSibling;
                     if (content && content.classList.contains('section-content')) {
                         if (content.style.display === 'block') {
-                            content.style.display = 'none';
+                            gsap.to(content, {height: 0, opacity: 0, duration: 0.4, onComplete: () => content.style.display = 'none'});
                         } else {
                             content.style.display = 'block';
+                            gsap.fromTo(content, {height: 0, opacity: 0}, {height: 'auto', opacity: 1, duration: 0.4});
                         }
                     }
                 });
             }
         });
 
+        // --- SERVICE TAB LOGIC ---
+        servicesGrid.addEventListener('click', (e) => {
+            const card = e.target.closest('.service-card');
+            if (!card || card.classList.contains('active')) return;
+
+            const targetId = card.dataset.target;
+            if (!targetId) return;
+
+            // Update active card
+            servicesGrid.querySelectorAll('.service-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+
+            // Show/hide content panels
+            const panels = document.querySelectorAll('.service-content-panel');
+            const activePanel = document.getElementById(targetId);
+            
+            panels.forEach(panel => {
+                if (panel.id !== targetId && panel.style.display !== 'none') {
+                    gsap.to(panel, { opacity: 0, duration: 0.3, onComplete: () => panel.style.display = 'none' });
+                }
+            });
+
+            if (activePanel) {
+                activePanel.style.display = 'block';
+                gsap.fromTo(activePanel, { opacity: 0 }, { opacity: 1, duration: 0.3, delay: 0.3 });
+            }
+            
+            // Re-initialize side navigation for the new content
+            setTimeout(setupSideNavigation, 350);
+        });
+
+
         // --- SCROLLSPY & MOBILE NAVIGATION ---
         const navContainer = document.getElementById('main-nav');
         const mobileMenuContainer = document.getElementById('mobile-menu');
-        const navSections = document.querySelectorAll('.section[data-nav]');
-        
-        navSections.forEach(section => {
-            // Desktop Nav
-            const dot = document.createElement('div');
-            dot.className = 'nav-dot';
-            dot.dataset.target = section.id;
-            dot.innerHTML = `<span class="tooltip">${section.dataset.nav}</span>`;
-            dot.addEventListener('click', () => {
-                section.scrollIntoView({ behavior: 'smooth' });
-                const header = section.querySelector('.section-header');
-                if (header && !header.classList.contains('is-open')) {
-                    header.querySelector('.section-title')?.click();
-                }
-            });
-            navContainer.appendChild(dot);
+        let navObserver;
 
-            // Mobile Nav
-            const link = document.createElement('a');
-            link.href = `#${section.id}`;
-            link.textContent = section.dataset.nav;
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.getElementById('mobile-menu').classList.remove('is-open');
-                section.scrollIntoView({ behavior: 'smooth' });
+        function setupSideNavigation() {
+            if (navObserver) navObserver.disconnect();
+            navContainer.innerHTML = '';
+            mobileMenuContainer.innerHTML = '';
+
+            const activePanel = document.querySelector('.service-content-panel:not([style*="display: none"])');
+            const serviceSections = activePanel ? activePanel.querySelectorAll('.section[data-nav]') : [];
+            const allNavSections = [
+                document.getElementById('hero'),
+                document.getElementById('hero-stats'),
+                document.getElementById('about'),
+                document.getElementById('services'),
+                ...serviceSections,
+                document.getElementById('contact')
+            ].filter(Boolean); // Filter out nulls if an ID doesn't exist
+
+            allNavSections.forEach(section => {
+                if (!section.dataset.nav) return;
+                
+                // Desktop Nav
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot';
+                dot.dataset.target = section.id;
+                dot.innerHTML = `<span class="tooltip">${section.dataset.nav}</span>`;
+                dot.addEventListener('click', () => {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                    const header = section.querySelector('.section-header');
+                    if (header && !header.classList.contains('is-open')) {
+                        header.querySelector('.section-title')?.click();
+                    }
+                });
+                navContainer.appendChild(dot);
+
+                // Mobile Nav
+                const link = document.createElement('a');
+                link.href = `#${section.id}`;
+                link.textContent = section.dataset.nav;
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.getElementById('mobile-menu').classList.remove('is-open');
+                    section.scrollIntoView({ behavior: 'smooth' });
+                });
+                mobileMenuContainer.appendChild(link);
             });
-            mobileMenuContainer.appendChild(link);
-        });
+
+            navObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        document.querySelectorAll('.nav-dot').forEach(dot => {
+                            dot.classList.toggle('active', dot.dataset.target === entry.target.id);
+                        });
+                    }
+                });
+            }, { rootMargin: '-50% 0px -50% 0px' });
+
+            allNavSections.forEach(section => navObserver.observe(section));
+        }
 
         document.getElementById('mobile-nav-toggle').addEventListener('click', () => {
             document.getElementById('mobile-menu').classList.toggle('is-open');
         });
 
-        const navObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    document.querySelectorAll('.nav-dot').forEach(dot => {
-                        dot.classList.toggle('active', dot.dataset.target === entry.target.id);
-                    });
-                }
-            });
-        }, { rootMargin: '-50% 0px -50% 0px' });
-
-        navSections.forEach(section => navObserver.observe(section));
+        // Initial nav setup
+        setupSideNavigation();
         
         // --- GSAP ANIMATIONS ---
+        // Sticky Header
+        const stickyHeader = document.getElementById('sticky-header');
+        if (stickyHeader) {
+            ScrollTrigger.create({
+                trigger: 'body',
+                start: '200px top',
+                onEnter: () => stickyHeader.classList.add('is-visible'),
+                onLeaveBack: () => stickyHeader.classList.remove('is-visible'),
+            });
+        }
+
         // Hero intro
         gsap.from('.hero-content > *', {
             opacity: 0,
